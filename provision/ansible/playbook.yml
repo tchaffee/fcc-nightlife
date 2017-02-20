@@ -1,0 +1,36 @@
+#- hosts: prod_webservers
+#  sudo: true
+#  roles:
+#    - jiv-e.secure-ubuntu
+
+- hosts: all
+  become: yes
+  vars:
+    mongodb_conf_port: 27400
+    mongodb_version: "3.2.12"
+  pre_tasks:
+  - name: update apt cache
+    apt: update_cache=yes
+
+  tasks:
+  - name: Install packages
+    apt:
+      name: "{{item}}"
+      state: latest
+    with_items:
+    - nodejs
+    - nodejs-legacy
+    - npm
+
+  - npm:
+      path: /vagrant/node-app
+
+  roles:
+  - Stouts.mongodb
+
+
+# TODO: Create the mongod service files.
+# NOTE: The service name should be mongod!!! Fix the stouts.mongodb defaults.
+# See https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-16-04
+
+# TODO: Update the MEAN template project?
