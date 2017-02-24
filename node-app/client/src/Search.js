@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Form, FormControl, FormGroup, InputGroup, Button } from 'react-bootstrap';
+
+import './Search.css';
 
 class Search extends Component {
 
@@ -21,11 +24,24 @@ class Search extends Component {
 
   render() {
     return (
-      <div className="search">
-        <form onSubmit={this.handleSubmit}>
-          <input value={this.state.value} onChange={this.handleChange} type="text" id="search" name="search" />
-          <input type="submit" value="Submit" />
-        </form>
+      <div className="Search">
+        <Form onSubmit={this.handleSubmit}>
+          <FormGroup>
+            <InputGroup>
+              <FormControl
+                id="search"
+                name="search"
+                type="text"
+                value={this.state.value}
+                placeholder="What Town?"
+                onChange={this.handleChange}
+              />
+              <InputGroup.Button>
+               <Button type="submit">Find Bars</Button>
+              </InputGroup.Button>
+            </InputGroup>
+          </FormGroup>
+        </Form>
       </div>
     );
   };
